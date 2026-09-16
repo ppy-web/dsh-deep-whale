@@ -1,11 +1,11 @@
 ---
 name: dsh-skin-install
-description: 迁移、切换、更新或验证 DSH Web 的 dsh-deep-whale 皮肤（skin-manager + maid-atelier + orca-link）。普通首次安装直接运行 README 的一行 GitHub 命令即可，不需要 AI；本技能处理旧包迁移、本地 link、指定提交、互斥切换与故障验证。
+description: 迁移、切换、更新或验证 DSH Web 的 dsh-deep-whale 皮肤（skin-manager + maid-atelier + orca-link + genshin-impact）。普通首次安装直接运行 README 的一行 GitHub 命令即可，不需要 AI；本技能处理旧包迁移、本地 link、指定提交、互斥切换与故障验证。
 ---
 
 # dsh-deep-whale 皮肤安装与切换
 
-目标：让 DSH Web 皮肤快速且可恢复地生效。**普通首次安装直接使用仓库 README 的 npm 一行命令（三个 `@smalltailqwq` 包，默认 `latest`），不需要 AI 预处理；皮肤互斥由 skin-manager 的启动兜底负责（检测到两套及以上皮肤同时启用 → 原子回退官方默认）。**本地开发与指定提交仍须保证互斥。切换和已安装 npm / link / GitHub 依赖的代码更新走热加载；初次新增包才重启；更新与指定提交测试只在用户要求时发生。
+目标：让 DSH Web 皮肤快速且可恢复地生效。**普通首次安装直接使用仓库 README 的 npm 一行命令（三个上游 `@smalltailqwq` 包，默认 `latest`）；本 fork 的 `genshin-impact` 使用 GitHub 子目录或本地路径；皮肤互斥由 skin-manager 的启动兜底负责（检测到两套及以上皮肤同时启用 → 原子回退官方默认）。**本地开发与指定提交仍须保证互斥。切换和已安装 npm / link / GitHub 依赖的代码更新走热加载；初次新增包才重启；更新与指定提交测试只在用户要求时发生。
 
 **本技能只给流程指导，具体事实以现场读取为准**：仓库会更新（新增皮肤、改署名链），不要依赖本文件或记忆中的清单，实时读取。
 
@@ -18,14 +18,14 @@ description: 迁移、切换、更新或验证 DSH Web 的 dsh-deep-whale 皮肤
 
 ## 先判断场景（决定走哪条路）
 
-先查当前 dsh 环境：`dsh plugin --profile <name> list`（实际 profile 名如 web）。本仓库三个发行包：`@smalltailqwq/dsh-client-ui-skin-deep-whale-manager`、`@smalltailqwq/dsh-client-ui-skin-maid-atelier`、`@smalltailqwq/dsh-client-ui-skin-orca-link`（npm 安装显示为版本依赖，GitHub 安装显示为 `github:`，本地路径安装显示为 `link:`）：
+先查当前 dsh 环境：`dsh plugin --profile <name> list`（实际 profile 名如 web）。本仓库上游三个发行包为 `@smalltailqwq/dsh-client-ui-skin-deep-whale-manager`、`@smalltailqwq/dsh-client-ui-skin-maid-atelier`、`@smalltailqwq/dsh-client-ui-skin-orca-link`；本 fork 另有 `@ppy-web/dsh-client-ui-skin-genshin-impact`（npm 安装显示为版本依赖，GitHub 安装显示为 `github:`，本地路径安装显示为 `link:`）：
 
-- **三包均已安装 → 场景 A 切换**：直接热切换，不 clone、不提问、不介绍，**跳过“重启安全闸门”与扫描清单**。
+- **皮肤包均已安装 → 场景 A 切换**：直接热切换，不 clone、不提问、不介绍，**跳过“重启安全闸门”与扫描清单**。
 - **未安装或只装了部分 → 场景 B 首次/补齐安装**：
-  - 用户要正式版：按仓库 README 从 npm 安装三个 `latest` 包（也可让用户自行执行，无需 AI）——**不要 clone**；
+  - 用户要正式版：按仓库 README 从 npm 安装三个 `latest` 上游包（也可让用户自行执行，无需 AI）——**不要 clone**；
   - 用户要本地开发版/测试指定提交：走本地 link 流程（复用已有 clone，找不到才 `git clone --depth 1`）。
   - 若发现 `@dsh-external/dsh-client-ui-skin-deep-whale-manager`、`@dsh-external/dsh-client-ui-skin-maid-atelier` 或 `@dsh-external/dsh-client-ui-skin-orca-link`：它们是 `0.1.3` 前的占位 scope 身份，必须先移除全部已安装旧键，再添加对应的 `@smalltailqwq/*` 包；新旧身份禁止并存。
-  - 若发现 `@dsh-external/dsh-deep-whale`（历史“聚合根包”，只存在于未合并的实验分支）：先移除它，再按三包安装，禁止与三包并存。
+  - 若发现 `@dsh-external/dsh-deep-whale`（历史“聚合根包”，只存在于未合并的实验分支）：先移除它，再按上游三包安装，禁止与三包并存。
 - **用户明确要求“更新/检查更新” → 场景 C 更新**：才对比远端/重新解析。
 - **用户要求加载本地修改或测试指定提交 → 场景 D 验证开发版本**：保护当前工作区和正在运行的 DSH。
 
@@ -67,7 +67,7 @@ DSH Web 正在运行不代表磁盘上的 profile 能再次启动；旧进程可
 
 ### 1. 确定安装来源
 
-- **正式安装（推荐）**：无需 clone，按 README 从 npm 添加三个 `@smalltailqwq/*` 包；未指定 dist-tag 时使用稳定的 `latest`。安装全部三个包，把 manager 常驻、两套皮肤都装上，互斥交给首次重启时的 manager 兜底，不需要预置脚本。需要直接跟随仓库 `main` 时才使用三个 GitHub `#path:` spec（要求 pnpm ≥ 9，PowerShell 下必须单引号包裹）。
+- **正式安装（推荐）**：无需 clone，按 README 从 npm 添加三个 `@smalltailqwq/*` 包；未指定 dist-tag 时使用稳定的 `latest`。安装全部三个上游包，把 manager 常驻、两套皮肤都装上；本 fork 的 `genshin-impact` 在发布前使用一个 GitHub `#path:` spec 或本地路径按需添加。互斥交给首次重启时的 manager 兜底，不需要预置脚本。
 - **本地开发 / 指定提交 / 弱网**：定位或 clone 仓库，然后按"独立子包安装"流程分别 add skin-manager 与目标皮肤的**子目录**绝对路径。**禁止 add 仓库根目录**（仓库根不是包，无 `package.json`，会直接失败）。本地 link 没有一行命令的自动兜底时序，add 之前先运行技能自带脚本预置互斥（见下）。
 - 只装一套皮肤（可带 manager）时没有互斥问题：patch 无行即启用，开箱即用。
 
@@ -80,14 +80,14 @@ DSH Web 正在运行不代表磁盘上的 profile 能再次启动；旧进程可
 
 ### 3. 与用户交互：安装范围与激活目标必须分开表达
 
-安装默认覆盖**全部三个发行包**（manager 常驻 + 两套皮肤），激活哪套在安装后由用户在设置页选择。若用户点名目标皮肤（如"安装 maid-atelier"），说明：装完重启后 manager 兜底会先回退官方默认，首次启动后即可在设置页一键激活；本地 link 流程则可在 add 前用脚本预置目标状态。只有用户明确要求"只安装这一套/最小安装"时，才缩小注册范围；即使最小安装，也必须显式停用其他已经安装的皮肤。
+安装默认覆盖**全部三个上游发行包**（manager 常驻 + 两套皮肤）；本 fork 的 `genshin-impact` 按需追加，激活哪套在安装后由用户在设置页选择。若用户点名目标皮肤，说明：装完重启后 manager 兜底会先回退官方默认，首次启动后即可在设置页一键激活；本地 link 流程则可在 add 前用脚本预置目标状态。只有用户明确要求"只安装这一套/最小安装"时，才缩小注册范围；即使最小安装，也必须显式停用其他已经安装的皮肤。
 
 ### 4. 向用户交代版权署名链与许可（初次安装必做）
 
 - **署名链**：读取本次将安装的每套皮肤的 `NOTICE`（署名链权威来源）与 README，逐套简述创作链（"一创 XX → 二创 XX → 本皮肤 XX"），附作者主页链接。**以 NOTICE 实际内容为准**，不要凭记忆介绍。
 - **许可**：以皮肤 `LICENSE`、`LICENSE-ARTWORK` 与 `NOTICE` 为准。代码采用 MIT；美术（包括背景、按钮图像、装饰、AI 生成图片及内嵌副本）采用 CC BY-NC-SA 4.0，禁止商业性使用，保留完整署名链，衍生美术须相同方式共享。MIT 不授予美术商用权限。
 
-注意：README 一行命令本身是"皮肤安装指令"，技能主动执行三条 add 时同样要交代署名链与许可；用户自装时确认其已读过 README 即可。
+注意：README 一行命令本身是"皮肤安装指令"，技能主动执行 add 时同样要交代署名链与许可；用户自装时确认其已读过 README 即可。
 
 ### 5. 注册包
 
@@ -96,6 +96,10 @@ DSH Web 正在运行不代表磁盘上的 profile 能再次启动；旧进程可
   dsh plugin --profile <name> add '@smalltailqwq/dsh-client-ui-skin-deep-whale-manager' && dsh plugin --profile <name> add '@smalltailqwq/dsh-client-ui-skin-maid-atelier' && dsh plugin --profile <name> add '@smalltailqwq/dsh-client-ui-skin-orca-link'
   ```
   PowerShell 下把 `&&` 换成 `;`，包名保持单引号。三条 add 之间不手写 patch——首次重启时 skin-manager 兜底负责回退与写入互斥行。
+- **本 fork 的原神主题**：
+  ```powershell
+  dsh plugin --profile <name> add 'github:ppy-web/dsh-deep-whale#path:/genshin-impact'
+  ```
 - **独立子包（本地开发/弱网）**：add 之前先预置互斥（add 后再写会留下叠加窗口）：
   `node <仓库绝对路径>/.agents/skills/dsh-skin-install/scripts/stage-mutual-exclusion.mjs --profile <name> --target <skin-id|official>`
   脚本复用 skin-manager 的托管块、原子写入和双层回滚逻辑，并保留 patch 中所有非托管内容。**禁止用重定向、整文件覆盖或重新生成整个 YAML 的方式写 patch。**脚本失败即停止，不得继续 add。
@@ -129,9 +133,9 @@ DSH Web 正在运行不代表磁盘上的 profile 能再次启动；旧进程可
 
 ## 已知要点（判断用，非写死事实）
 
-- 本仓库皮肤是纯展示层 client 插件：不注入服务、不发 Cordis 事件、不触达模型请求；素材以数据 URI 内嵌于 bundle，激活不依赖远程资源。
+- 本仓库皮肤是纯展示层 client 插件：不注入服务、不发 Cordis 事件、不触达模型请求；皮肤资源以 bundle 内嵌或包内静态文件提供，激活不依赖远程资源。
 - 皮肤可热切换，`wiring.id` 即 patch 层控制的插件 id；皮肤中心/互斥切换机制兼容。
 - **skin-manager 插件**（`@smalltailqwq/dsh-client-ui-skin-deep-whale-manager`）在设置面板注册"皮肤管理"分类：发现已安装皮肤（`GET /api/dsh/skins`，依据是 profile 依赖中导出有效 `skin.json`——`package` 匹配包名——的包）；一键激活（`POST /api/dsh/skins { target }`，同源校验 + catalog 校验 + 两 patch 层原子写入回滚）、皮肤定制声明渲染。启动时若按 profile→home 优先级计算出同时启用两套及以上皮肤，管理器会自动原子切到“官方默认”并写入互斥行；已有零套或一套启用的合法选择保持不变。安装皮肤后管理器自动发现,无需额外配置。
 - 皮肤子包本身**不带**默认 `disabled`（patch 无行 = 启用）；互斥的责任在管理器（启动兜底 + 原子切换），不要求用户预置脚本。预置脚本仅用于本地 link 流程与恢复工具。
-- npm 一行安装 = 三个 `@smalltailqwq/*` 包，默认使用 `latest`；GitHub `#path:` 子包是跟随 `main` 的备用来源（仓库根不是包），要求 **pnpm ≥ 9**，PowerShell 中 `#` 是注释起始，spec 必须单引号；更新命令里 `@` 开头 token 加引号更稳。
+- npm 一行安装 = 三个 `@smalltailqwq/*` 上游包，默认使用 `latest`；本 fork 的 `genshin-impact` 通过 GitHub `#path:/genshin-impact` 或本地路径安装。GitHub `#path:` 子包是跟随 `main` 的备用来源（仓库根不是包），要求 **pnpm ≥ 9**，PowerShell 中 `#` 是注释起始，spec 必须单引号；更新命令里 `@` 开头 token 加引号更稳。
 - 仓库 README 提供安装/更新/互斥/验证/排查的完整说明；反馈问题走仓库 issue，不要联系画师本人。

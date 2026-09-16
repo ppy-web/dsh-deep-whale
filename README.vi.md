@@ -12,6 +12,7 @@ Nhấp vào ảnh để xem kích thước đầy đủ.
 |---|---|---|
 | maid-atelier | [![maid-atelier chế độ sáng](maid-atelier/preview/light.webp)](maid-atelier/preview/light.webp) | [![maid-atelier chế độ tối](maid-atelier/preview/dark.webp)](maid-atelier/preview/dark.webp) |
 | orca-link | [![orca-link chế độ sáng](orca-link/preview/light.png)](orca-link/preview/light.png) | [![orca-link chế độ tối](orca-link/preview/dark.png)](orca-link/preview/dark.png) |
+| genshin-impact | [![genshin-impact chế độ sáng](genshin-impact/preview/light.svg)](genshin-impact/preview/light.svg) | [![genshin-impact chế độ tối](genshin-impact/preview/dark.svg)](genshin-impact/preview/dark.svg) |
 
 ## Các thành phần
 
@@ -19,6 +20,7 @@ Nhấp vào ảnh để xem kích thước đầy đủ.
 |---|---|---|---|
 | [maid-atelier](maid-atelier/) | `@smalltailqwq/dsh-client-ui-skin-maid-atelier` | Xưởng hầu biển sâu: nền hai hầu gái, giao diện ren xanh biển sâu và thanh bên chibi | MIT (code) / CC BY-NC-SA 4.0 (artwork) |
 | [orca-link](orca-link/) | `@smalltailqwq/dsh-client-ui-skin-orca-link` | ORCA LINK: khoang cơ khí trắng ngọc, nhân vật orca-girl và tín hiệu liên kết xanh điện | MIT (code) / CC BY-NC-SA 4.0 (artwork) |
+| [genshin-impact](genshin-impact/) | `@ppy-web/dsh-client-ui-skin-genshin-impact` | Nhà Lữ Hành Teyvat: bốn dấu ấn nguyên tố, sắc ngọc, bản đồ sao hổ phách và hai bảng màu sáng/tối | MIT |
 | [skin-manager](skin-manager/) | `@smalltailqwq/dsh-client-ui-skin-deep-whale-manager` | Trình quản lý giao diện: khám phá, chuyển đổi và tùy chỉnh theo giao diện tự khai báo | MIT |
 
 ## Chủ sở hữu bản quyền

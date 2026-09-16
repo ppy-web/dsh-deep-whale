@@ -1,0 +1,16 @@
+{
+  "id": "genshin-impact",
+  "name": "提瓦特旅者",
+  "nameEn": "Teyvat Traveler",
+  "author": "ppy-web",
+  "tagline": "四元素徽记 · 翡翠自然 · 琥珀星图",
+  "description": "一套受提瓦特自然与元素徽记启发的 DSH WebUI 皮肤：以翡翠、琥珀和雷紫重绘侧栏、对话区与输入卡片，保留宿主交互与无障碍语义，并提供亮暗两套配色。",
+  "tags": ["genshin", "teyvat", "elemental", "jade", "amber", "anime"],
+  "accent": "#4c9d8b",
+  "bodyAttr": "data-dsh-genshin-impact",
+  "dshCompatibility": "0.1.5rc2",
+  "package": "@ppy-web/dsh-client-ui-skin-genshin-impact",
+  "wiring": { "id": "ui-skin-genshin-impact", "bundleWired": false },
+  "preview": { "light": "preview/light.svg", "dark": "preview/dark.svg" },
+  "order": 15
+}

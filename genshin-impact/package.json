@@ -1,0 +1,62 @@
+{
+  "name": "@ppy-web/dsh-client-ui-skin-genshin-impact",
+  "description": "A Teyvat-inspired elemental skin for the dsh web GUI with jade, amber, and electro-violet accents",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./skin.json": "./skin.json",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [],
+      "platform": "web"
+    }
+  },
+  "scripts": {
+    "build": "tsdown && node ../scripts/write-skin-build.mjs . ppy-web/dsh-deep-whale",
+    "test": "vitest run"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ppy-web/dsh-deep-whale.git",
+    "directory": "genshin-impact"
+  },
+  "homepage": "https://github.com/ppy-web/dsh-deep-whale/tree/main/genshin-impact#readme",
+  "bugs": {
+    "url": "https://github.com/ppy-web/dsh-deep-whale/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "jsdom": "29.1.1",
+    "lightningcss": "^1.32.0",
+    "tsdown": "0.22.14",
+    "vitest": "4.1.10"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "cordis.patch.yml",
+    "skin.json",
+    "skin.build.json",
+    "preview",
+    "LICENSE",
+    "LICENSE-ARTWORK",
+    "NOTICE",
+    "README.md"
+  ]
+}

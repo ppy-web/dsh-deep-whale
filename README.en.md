@@ -12,6 +12,7 @@ Click an image for the full size.
 |---|---|---|
 | maid-atelier | [![maid-atelier light mode](maid-atelier/preview/light.webp)](maid-atelier/preview/light.webp) | [![maid-atelier dark mode](maid-atelier/preview/dark.webp)](maid-atelier/preview/dark.webp) |
 | orca-link | [![orca-link light mode](orca-link/preview/light.png)](orca-link/preview/light.png) | [![orca-link dark mode](orca-link/preview/dark.png)](orca-link/preview/dark.png) |
+| genshin-impact | [![genshin-impact light mode](genshin-impact/preview/light.svg)](genshin-impact/preview/light.svg) | [![genshin-impact dark mode](genshin-impact/preview/dark.svg)](genshin-impact/preview/dark.svg) |
 
 ## Residents
 
@@ -19,6 +20,7 @@ Click an image for the full size.
 |---|---|---|---|
 | [maid-atelier](maid-atelier/) | `@smalltailqwq/dsh-client-ui-skin-maid-atelier` | Abyssal Maid Atelier: twin-maid backdrop, deep-sea navy lace UI and a chibi sidebar | MIT (code) / CC BY-NC-SA 4.0 (artwork) |
 | [orca-link](orca-link/) | `@smalltailqwq/dsh-client-ui-skin-orca-link` | ORCA LINK: pearl-white mechanical bay, orca-girl character and electric-blue link signals | MIT (code) / CC BY-NC-SA 4.0 (artwork) |
+| [genshin-impact](genshin-impact/) | `@ppy-web/dsh-client-ui-skin-genshin-impact` | Teyvat Traveler: four elemental seals, jade nature, amber star map and light/dark palettes | MIT |
 | [skin-manager](skin-manager/) | `@smalltailqwq/dsh-client-ui-skin-deep-whale-manager` | Generic skin discovery, switching and skin-declared settings panel | MIT |
 
 ## Copyright Holders
@@ -36,7 +38,7 @@ Click an image for the full size.
 
 > **Check your distribution first:** the commands below are only for standalone environments that run DSH directly. If you installed `@linxin666/dsh-web-all` (dsh-web), install its adapted `maid-atelier` and `orca-link` through dsh-web's own skin center/installer instead. Do not add this repository's standalone packages to the same profile; the component and styling contracts differ and the resulting UI may be broken.
 
-The three distribution packages (skin manager + both skins) are published on npm. With no dist-tag specified, this installs the stable `latest` release — **no clone required**.
+The three upstream distribution packages (skin manager + both skins) are published on npm. This fork also contains the unpublished `genshin-impact` package, which can be installed from the GitHub subdirectory below.
 
 **Linux / macOS / WSL:**
 
@@ -53,6 +55,10 @@ dsh plugin --profile web add '@smalltailqwq/dsh-client-ui-skin-deep-whale-manage
 For a single skin, drop the line you do not need (keep skin-manager: switching and mutual exclusion rely on it).
 
 This is a first-time package addition, so restart DSH once. On that restart the skin manager detects "two skins enabled at once" and **atomically falls back to the official default**, so a fresh install can never leave skins stacked; then open Settings → Skin Management and click Switch on your skin — hot reload applies it. Later switches need no restart and no AI assistance.
+
+```powershell
+dsh plugin --profile web add 'github:ppy-web/dsh-deep-whale#path:/genshin-impact'
+```
 
 > To follow GitHub `main` directly, use `github:Small-tailqwq/dsh-deep-whale#path:/<subdirectory>` (requires pnpm ≥ 9). For local development, see [Standalone sub-package install](#standalone-sub-package-install-dev-and-weak-network-fallback). npm, GitHub and local links are different sources for the same package names; the last `add` wins.
 

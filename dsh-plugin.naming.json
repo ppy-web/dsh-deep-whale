@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "policy": "dsh-plugin-naming/v1",
+  "plugin": {
+    "namespace": "ppy-web",
+    "name": "genshin-impact",
+    "coordinate": "ppy-web/genshin-impact",
+    "packageName": "@ppy-web/dsh-client-ui-skin-genshin-impact"
+  },
+  "names": {
+    "pluginNames": ["genshin-impact"],
+    "loaderIds": ["ppy-web-genshin-impact"],
+    "services": [], "tools": [], "commands": [], "skills": [],
+    "skillProviders": [], "events": [], "settingsNamespaces": [], "routes": []
+  }
+}

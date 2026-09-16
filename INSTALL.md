@@ -1,6 +1,6 @@
 # dsh-deep-whale Installation
 
-The one-line install pulls the stable `latest` release of the skin manager and both Deep Whale skins from npm — no clone or AI assistance required.
+The one-line install pulls the stable `latest` release of the skin manager and both Deep Whale skins from npm — no clone or AI assistance required. This fork also contains the unpublished `genshin-impact` skin.
 
 > **Distribution boundary:** these instructions are only for standalone environments that run DSH directly. If `@linxin666/dsh-web-all` (dsh-web) is installed, stop here and install dsh-web's adapted `maid-atelier` and `orca-link` through its own skin center/installer. Do not add this repository's standalone packages to the same profile.
 
@@ -18,7 +18,13 @@ dsh plugin --profile web add '@smalltailqwq/dsh-client-ui-skin-deep-whale-manage
 dsh plugin --profile web add '@smalltailqwq/dsh-client-ui-skin-deep-whale-manager'; dsh plugin --profile web add '@smalltailqwq/dsh-client-ui-skin-maid-atelier'; dsh plugin --profile web add '@smalltailqwq/dsh-client-ui-skin-orca-link'
 ```
 
-Restart DSH once (first package addition). On that restart the skin manager detects "two skins enabled at once" and atomically falls back to the official default, so skins can never stack; then choose a skin in Settings → Skin Management. Later switches hot-reload without a restart.
+Restart DSH once (first package addition). On that restart the skin manager detects multiple skins enabled at once and atomically falls back to the official default, so skins can never stack; then choose a skin in Settings → Skin Management. Later switches hot-reload without a restart.
+
+To try the fork's Teyvat Traveler skin before it is published to npm:
+
+```powershell
+dsh plugin --profile web add 'github:ppy-web/dsh-deep-whale#path:/genshin-impact'
+```
 
 Update with:
 

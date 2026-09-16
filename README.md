@@ -12,6 +12,7 @@ DeepSeek Harness Web GUI 的鲸鱼娘主题皮肤系列(独立分发仓库)。
 |---|---|---|
 | maid-atelier | [![maid-atelier 亮色模式](maid-atelier/preview/light.webp)](maid-atelier/preview/light.webp) | [![maid-atelier 暗色模式](maid-atelier/preview/dark.webp)](maid-atelier/preview/dark.webp) |
 | orca-link | [![orca-link 亮色模式](orca-link/preview/light.png)](orca-link/preview/light.png) | [![orca-link 暗色模式](orca-link/preview/dark.png)](orca-link/preview/dark.png) |
+| genshin-impact | [![genshin-impact 亮色模式](genshin-impact/preview/light.svg)](genshin-impact/preview/light.svg) | [![genshin-impact 暗色模式](genshin-impact/preview/dark.svg)](genshin-impact/preview/dark.svg) |
 
 ## 住户
 
@@ -19,6 +20,7 @@ DeepSeek Harness Web GUI 的鲸鱼娘主题皮肤系列(独立分发仓库)。
 |---|---|---|---|
 | [maid-atelier](maid-atelier/) | `@smalltailqwq/dsh-client-ui-skin-maid-atelier` | 深海女仆工坊:双女仆背景、深海蓝蕾丝界面与 Q 版侧栏 | MIT (code) / CC BY-NC-SA 4.0 (artwork) |
 | [orca-link](orca-link/) | `@smalltailqwq/dsh-client-ui-skin-orca-link` | 虎鲸链路:珍珠白机械舱、虎鲸娘角色与电蓝链路信号 | MIT (code) / CC BY-NC-SA 4.0 (artwork) |
+| [genshin-impact](genshin-impact/) | `@ppy-web/dsh-client-ui-skin-genshin-impact` | 提瓦特旅者:四元素徽记、翡翠自然、琥珀星图与亮暗主题 | MIT |
 | [skin-manager](skin-manager/) | `@smalltailqwq/dsh-client-ui-skin-deep-whale-manager` | 通用皮肤发现、切换与皮肤自声明配置面板 | MIT |
 
 ## 版权所有人
@@ -36,7 +38,7 @@ DeepSeek Harness Web GUI 的鲸鱼娘主题皮肤系列(独立分发仓库)。
 
 > **先确认发行版：**下面的命令只用于直接运行 DSH 的 standalone 环境。若已安装 `@linxin666/dsh-web-all`（dsh-web），请改从 dsh-web 自带的皮肤中心/安装入口安装其 `maid-atelier` 与 `orca-link` 适配版；不要在同一 profile 中再叠装本仓库的 standalone 包，否则组件与样式契约不一致，界面可能显示异常。
 
-三个发行包（皮肤管理器 + 两套皮肤）已发布到 npm。未指定 dist-tag 时安装稳定的 `latest`，**无需 clone**。
+三个发行包（皮肤管理器 + 两套上游皮肤）已发布到 npm。未指定 dist-tag 时安装稳定的 `latest`，**无需 clone**。本 fork 另增 `genshin-impact`，在发布前请使用 GitHub 子目录或本地路径安装。
 
 **Linux / macOS / WSL:**
 
@@ -52,7 +54,13 @@ dsh plugin --profile web add '@smalltailqwq/dsh-client-ui-skin-deep-whale-manage
 
 只想用其中一套皮肤时，把不需要的那行删掉（skin-manager 建议保留，切换与互斥都靠它）。
 
-首次安装是新增插件包，需要重启一次 DSH。重启时 skin-manager 会检测“两套皮肤同时启用”并**自动原子回退到官方默认**，所以首次安装不会出现皮肤叠加窗口；随后打开「设置 → 皮肤管理」点击目标皮肤「切换」即热重载生效，此后切换不再需要重启，也不需要 AI 参与。
+**本 fork 新增的原神主题：**
+
+```powershell
+dsh plugin --profile web add 'github:ppy-web/dsh-deep-whale#path:/genshin-impact'
+```
+
+首次安装是新增插件包，需要重启一次 DSH。重启时 skin-manager 会检测“多套皮肤同时启用”并**自动原子回退到官方默认**，所以首次安装不会出现皮肤叠加窗口；随后打开「设置 → 皮肤管理」点击目标皮肤「切换」即热重载生效，此后切换不再需要重启，也不需要 AI 参与。
 
 > 需要直接跟随 GitHub `main` 时，也可用 `github:Small-tailqwq/dsh-deep-whale#path:/<子目录>`（需要 pnpm ≥ 9）；本地开发见[独立子包安装](#独立子包安装本地开发与弱网备用)。npm、GitHub 与本地 link 是同一包名的不同来源，混用时以最后一次 `add` 为准。
 
@@ -94,10 +102,10 @@ dsh plugin --profile web remove '@dsh-external/dsh-client-ui-skin-deep-whale-man
 
 ### 皮肤互斥机制（必读）
 
-- 先分清：`skin-manager` 不是皮肤，而是**皮肤管理器**（提供发现、切换与定制面板），需要常驻启用；互斥的对象是**皮肤本身**——本仓库的皮肤是 maid-atelier 与 orca-link。
+- 先分清：`skin-manager` 不是皮肤，而是**皮肤管理器**（提供发现、切换与定制面板），需要常驻启用；互斥的对象是**皮肤本身**——本 fork 的皮肤是 maid-atelier、orca-link 与 genshin-impact。
 - 皮肤启停由 patch 层控制：profile 的 `~/.dsh/profiles/web/cordis.patch.yml` 与 home 层的 `~/.dsh/cordis.patch.yml` 里各自的 `- id: <wiring.id>` + `disabled: true/false` 行（**两层都要写**，home 层优先级更高）。
-- **patch 里没有某皮肤行的 `disabled` 行 → 该皮肤默认启用**。所以只装一套皮肤时它开箱即用；一次装两套、又从未切换时它们会**同时运行**：装饰层互相叠加、侧栏/设置区被搅乱，典型症状是**设置按钮消失、侧栏宽度/布局异常、界面混乱**（原版正常）。
-- **互斥由 skin-manager 兜底**：一行安装同时注册三包，首次重启时管理器合并 profile→home 两层状态，检测到实际同时启用两套及以上皮肤 → 自动原子回退到“官方默认”并写入互斥行；已有零套或一套启用的合法选择不会被改写。无需在安装前手工预置。
+- **patch 里没有某皮肤行的 `disabled` 行 → 该皮肤默认启用**。所以只装一套皮肤时它开箱即用；一次装多套、又从未切换时它们会**同时运行**：装饰层互相叠加、侧栏/设置区被搅乱，典型症状是**设置按钮消失、侧栏宽度/布局异常、界面混乱**（原版正常）。
+- **互斥由 skin-manager 兜底**：安装多个皮肤包后，首次重启时管理器合并 profile→home 两层状态，检测到实际同时启用两套及以上皮肤 → 自动原子回退到“官方默认”并写入互斥行；已有零套或一套启用的合法选择不会被改写。无需在安装前手工预置。
 - skin-manager（设置 → 皮肤管理）激活时会自动把互斥行写入两个 patch 层；手写时“只保留一套”必须**显式停用其余每一套**。
 - 安装了皮肤管理器后，皮肤定制项（如“不那么二次元模式”的可见时段）保存在当前浏览器，由管理器统一应用。
 
@@ -111,6 +119,7 @@ node <clone 的绝对路径>/.agents/skills/dsh-skin-install/scripts/stage-mutua
 dsh plugin --profile web add <clone 的绝对路径>/skin-manager   # 常驻皮肤管理面板（推荐）
 dsh plugin --profile web add <clone 的绝对路径>/maid-atelier   # 深海女仆工坊
 dsh plugin --profile web add <clone 的绝对路径>/orca-link      # 虎鲸链路
+dsh plugin --profile web add <clone 的绝对路径>/genshin-impact # 提瓦特旅者
 ```
 
 > 第一条 `node` 命令是**可选优化**：它在 `plugin add` 前把目标皮肤设为唯一启用项，使第一次启动直接就是目标皮肤；保留非皮肤 YAML，不整文件覆盖 patch。跳过它也安全——首次启动时 skin-manager 兜底会回退到官方默认，进「设置 → 皮肤管理」切换即可。要默认启用虎鲸则把 target 改成 `orca-link`，要保持原版则改成 `official`。
@@ -120,10 +129,12 @@ dsh plugin --profile web add <clone 的绝对路径>/orca-link      # 虎鲸链�
 **方式 B：手写两个 patch 层**。把下面的行**追加到** `~/.dsh/profiles/web/cordis.patch.yml` **和** `~/.dsh/cordis.patch.yml`（两者缺一不可，home 层覆盖 profile 层）：
 
 ```yaml
-# 示例：只启用 maid-atelier；改为 orca-link 时把 false 移到它那行，两套皮肤只能有一套是 false
+# 示例：只启用 maid-atelier；其他皮肤必须显式停用，所有皮肤只能有一套是 false
 - id: ui-skin-maid-atelier
   disabled: false
 - id: ui-skin-orca-link
+  disabled: true
+- id: ui-skin-genshin-impact
   disabled: true
 - id: ui-skin-deep-whale-manager
   disabled: false
@@ -155,10 +166,10 @@ dsh plugin --profile web add C:/Users/<你>/code/dsh-deep-whale/maid-atelier
 
 ```sh
 dsh plugin --profile web list          # 应看到三个 @smalltailqwq/dsh-client-ui-skin-* 依赖
-dsh --profile web --dump-config        # manager 行 disabled: false；两套皮肤互斥：skins 恰一套 false
+dsh --profile web --dump-config        # manager 行 disabled: false；皮肤互斥：skins 恰一套 false
 ```
 
-> 一行安装后、**尚未重启前** `--dump-config` 的状态取决于你的 patch 层：干净环境下两套皮肤都还没有互斥行（默认启用，是正常过渡态——首次重启时 skin-manager 兜底回退并写入互斥行）；若 home 层残留过互斥行（之前装过本仓库皮肤又卸载），则直接沿用该状态。冷启动后还必须在浏览器控制台检查 client roster（仅有配置 entry 不代表浏览器包已注册）。启动页 HTML 必须引用 manager 与启用皮肤的 `/plugins/<真实包名>/client.js`；不同 DSH 版本载体不同（旧版在 `window.__DSH_BOOT__` JSON 里，0.1.1rc2+ 是直接 `<script src>` 标签），下面这条两种版本都能用：
+> 一行安装后、**尚未重启前** `--dump-config` 的状态取决于你的 patch 层：干净环境下已安装皮肤都还没有互斥行（默认启用，是正常过渡态——首次重启时 skin-manager 兜底回退并写入互斥行）；若 home 层残留过互斥行（之前装过本仓库皮肤又卸载），则直接沿用该状态。冷启动后还必须在浏览器控制台检查 client roster（仅有配置 entry 不代表浏览器包已注册）。启动页 HTML 必须引用 manager 与启用皮肤的 `/plugins/<真实包名>/client.js`；不同 DSH 版本载体不同（旧版在 `window.__DSH_BOOT__` JSON 里，0.1.1rc2+ 是直接 `<script src>` 标签），下面这条两种版本都能用：
 
 ```js
 document.documentElement.outerHTML.match(/\/plugins\/@smalltailqwq\/[^"'\s]+/g) ?? []
@@ -197,6 +208,6 @@ document.documentElement.outerHTML.match(/\/plugins\/@smalltailqwq\/[^"'\s]+/g) 
 
 ## 许可
 
-项目自有代码采用 **MIT**，许可范围见 [LICENSE](LICENSE)。美术资源保留原作者版权与既有授权：两套皮肤的全部美术（包括 AI 生成及加工的图片）按 CC BY-NC-SA 4.0 使用，**禁止商业性使用**，署名链见各自 `NOTICE`，许可正文见 `LICENSE-ARTWORK`。图片即使嵌入源码、CSS 或构建产物，也不属于 MIT 授权范围。第三方材料保留其适用许可；历史版本已授出的权限不因本说明而撤销。
+项目自有代码采用 **MIT**，许可范围见 [LICENSE](LICENSE)。现有鲸鱼娘美术资源保留原作者版权与既有授权：按 CC BY-NC-SA 4.0 使用，**禁止商业性使用**，署名链见各自 `NOTICE`，许可正文见 `LICENSE-ARTWORK`。新增 `genshin-impact` 包只含原创 SVG/CSS 视觉，按其包内 MIT 许可发布。第三方材料保留其适用许可；历史版本已授出的权限不因本说明而撤销。
 
 皮肤工程脚手架来自 [zhu1090093659/dsh-web-ui](https://github.com/zhu1090093659/dsh-web-ui)，本仓库仅分发皮肤成品,不包含脚手架。

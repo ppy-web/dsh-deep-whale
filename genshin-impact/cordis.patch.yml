@@ -1,0 +1,4 @@
+# genshin-impact skin bundle: inserts its public dsh.client entry into the web roster.
+- insert:
+    - id: ui-skin-genshin-impact
+      name: '@ppy-web/dsh-client-ui-skin-genshin-impact'

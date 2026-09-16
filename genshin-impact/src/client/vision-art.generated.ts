@@ -1,0 +1,3 @@
+import { GENSHIN_IMPACT_LANTERN } from './asset-urls.ts'
+
+export const GENSHIN_IMPACT_TRAVELER_VISION = GENSHIN_IMPACT_LANTERN

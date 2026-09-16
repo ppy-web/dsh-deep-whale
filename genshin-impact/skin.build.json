@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "fingerprint": "b6db64ec1b5fbbc52df0930405fd8e0b06dbabd6a4c68b04afcd15686ccd2839",
-  "sourceCommit": "80630009aee821fe69a9bcd1078c7098300f2c26",
+  "fingerprint": "d42e66918b2cdc6f6fd3d06208174f9ef8441ce261fe02ae114e9372b75bcdf8",
+  "sourceCommit": "b25e0e078299a69af5e7a734c7f8cc02019db47c",
   "repository": "ppy-web/dsh-deep-whale",
   "path": "genshin-impact"
 }

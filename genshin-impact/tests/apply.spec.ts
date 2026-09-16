@@ -7,25 +7,27 @@ describe('genshin-impact skin', () => {
     document.title = 'Original'
   })
 
-  it('mounts the elemental rail and restores owned state on disposal', () => {
-    let dispose: (() => void) | undefined
+  it('mounts layered chrome and restores owned state on disposal', () => {
+    document.body.innerHTML = '<main data-pane="conversation"><div data-composer-card></div></main>'
+    const disposers: Array<() => void> = []
     const ctx = {
       effect(effect: () => () => void): void {
-        dispose = effect()
+        disposers.push(effect())
       },
     }
 
     apply(ctx as never)
 
     expect(document.body.hasAttribute('data-dsh-genshin-impact')).toBe(true)
-    expect(document.querySelector('[data-skin-chrome="element-rail"]')).not.toBeNull()
-    expect(document.querySelectorAll('[data-element]')).toHaveLength(4)
+    expect(document.querySelector('[data-skin-chrome="character-stage"]')).not.toBeNull()
+    expect(document.querySelector('[data-skin-chrome="top-trim"]')).not.toBeNull()
+    expect(document.querySelector('[data-skin-chrome="bottom-trim"]')).not.toBeNull()
     expect(document.title).toBe('提瓦特旅者 · DeepSeek Harness')
 
-    dispose?.()
+    disposers.reverse().forEach(dispose => dispose())
 
     expect(document.body.hasAttribute('data-dsh-genshin-impact')).toBe(false)
-    expect(document.querySelector('[data-skin-chrome="element-rail"]')).toBeNull()
+    expect(document.querySelector('[data-skin-chrome]')).toBeNull()
     expect(document.title).toBe('Original')
   })
 })

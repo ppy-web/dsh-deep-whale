@@ -20,7 +20,7 @@
     }
   },
   "scripts": {
-    "build": "tsdown && node ../scripts/write-skin-build.mjs . ppy-web/dsh-deep-whale",
+    "build": "node scripts/encode-genshin-assets.mjs && tsdown && node ../scripts/write-skin-build.mjs . ppy-web/dsh-deep-whale",
     "test": "vitest run"
   },
   "license": "SEE LICENSE IN LICENSE",
@@ -54,6 +54,7 @@
     "skin.json",
     "skin.build.json",
     "preview",
+    "assets",
     "LICENSE",
     "LICENSE-ARTWORK",
     "NOTICE",
